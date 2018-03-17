@@ -31,21 +31,25 @@ class RepositoryAdapter(
             holder.description.text = description
 
             holder.language.text = language
-            holder.language.visibility = when (language) {
-                null -> View.GONE
-                else -> View.VISIBLE
-            }
+            holder.language.visible = !language.isNullOrBlank()
 
             holder.starCount.text = stargazers_count.toString()
+            holder.starGroup.visible = stargazers_count > 0
+
             holder.forkCount.text = forks_count.toString()
+            holder.forkGroup.visible = forks_count > 0
 
             holder.license.text = licence?.name
-            holder.licenseGroup.visibility = when (licence) {
-                null -> View.GONE
-                else -> View.VISIBLE
-            }
+            holder.licenseGroup.visible = licence != null
         }
     }
+
+    private var View.visible: Boolean
+        get() = visibility == View.VISIBLE
+        set(value) {
+            visibility = if (value) View.VISIBLE
+            else View.GONE
+        }
 }
 
 class RepositoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -53,7 +57,9 @@ class RepositoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val description: TextView by bind(R.id.repository_element_description)
     val language: TextView by bind(R.id.repository_element_language)
     val starCount: TextView by bind(R.id.repository_element_star_count)
+    val starGroup: Group by bind(R.id.repository_element_star_group)
     val forkCount: TextView by bind(R.id.repository_element_forked_count)
+    val forkGroup: Group by bind(R.id.repository_element_forked_group)
     val license: TextView by bind(R.id.repository_element_license_name)
     val licenseGroup: Group by bind(R.id.repository_element_license_group)
 }

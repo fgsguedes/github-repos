@@ -5,7 +5,7 @@ import com.fgsguedes.githubrepos.data.GitHubApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 class App : Application() {
@@ -24,11 +24,11 @@ class App : Application() {
     private val retrofit by lazy {
         Retrofit.Builder()
             .baseUrl("https://api.github.com")
-            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(MoshiConverterFactory.create())
             .client(okHttpClient)
             .build()
     }
 
-    val gitHubApi by lazy { retrofit.create(GitHubApi::class.java) }
+    val gitHubApi: GitHubApi by lazy { retrofit.create(GitHubApi::class.java) }
 }

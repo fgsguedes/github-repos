@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <android.support.constraint.Guideline
         android:id="@+id/repository_element_guideline_start"
@@ -89,6 +89,7 @@
         tools:text="553" />
 
     <android.support.constraint.Group
+        android:id="@+id/repository_element_license_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:constraint_referenced_ids="repository_element_license_image,repository_element_license_count" />
@@ -104,7 +105,7 @@
         app:srcCompat="@drawable/ic_license" />
 
     <TextView
-        android:id="@+id/repository_element_license_count"
+        android:id="@+id/repository_element_license_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"

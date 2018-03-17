@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/repository_element_guideline_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/screen_edge_margin" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/repository_element_guideline_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/screen_edge_margin" />
+
+    <TextView
+        android:id="@+id/repository_element_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        app:layout_constraintEnd_toEndOf="@id/repository_element_guideline_end"
+        app:layout_constraintStart_toStartOf="@id/repository_element_guideline_start"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="timber" />
+
+    <TextView
+        android:id="@+id/repository_element_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:layout_constraintEnd_toEndOf="@id/repository_element_guideline_end"
+        app:layout_constraintStart_toStartOf="@id/repository_element_guideline_start"
+        app:layout_constraintTop_toBottomOf="@id/repository_element_name"
+        tools:text="A logger with a small, extensible API which provides utility on top of Android's normal Log class." />
+
+    <TextView
+        android:id="@+id/repository_element_language"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@id/repository_element_guideline_start"
+        app:layout_constraintTop_toBottomOf="@id/repository_element_description"
+        tools:text="Java" />
+
+    <ImageView
+        android:id="@+id/repository_element_star_image"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@id/repository_element_language"
+        app:layout_constraintStart_toEndOf="@id/repository_element_language"
+        app:layout_constraintTop_toTopOf="@id/repository_element_language"
+        app:srcCompat="@drawable/ic_star" />
+
+    <TextView
+        android:id="@+id/repository_element_star_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/repository_element_star_image"
+        app:layout_constraintStart_toEndOf="@id/repository_element_star_image"
+        app:layout_constraintTop_toTopOf="@id/repository_element_star_image"
+        tools:text="5,408" />
+
+    <ImageView
+        android:id="@+id/repository_element_forked_image"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@id/repository_element_star_count"
+        app:layout_constraintStart_toEndOf="@id/repository_element_star_count"
+        app:layout_constraintTop_toTopOf="@id/repository_element_star_count"
+        app:srcCompat="@drawable/ic_repo_forked" />
+
+    <TextView
+        android:id="@+id/repository_element_forked_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/repository_element_forked_image"
+        app:layout_constraintStart_toEndOf="@id/repository_element_forked_image"
+        app:layout_constraintTop_toTopOf="@id/repository_element_forked_image"
+        tools:text="5,408" />
+
+
+    <ImageView
+        android:id="@+id/repository_element_license_image"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@id/repository_element_forked_count"
+        app:layout_constraintStart_toEndOf="@id/repository_element_forked_count"
+        app:layout_constraintTop_toTopOf="@id/repository_element_forked_count"
+        app:srcCompat="@drawable/ic_license" />
+
+    <TextView
+        android:id="@+id/repository_element_license_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/repository_element_license_image"
+        app:layout_constraintStart_toEndOf="@id/repository_element_license_image"
+        app:layout_constraintTop_toTopOf="@id/repository_element_license_image"
+        tools:text="5,408" />
+
+</android.support.constraint.ConstraintLayout>

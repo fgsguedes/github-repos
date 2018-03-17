@@ -86,8 +86,12 @@
         app:layout_constraintBottom_toBottomOf="@id/repository_element_forked_image"
         app:layout_constraintStart_toEndOf="@id/repository_element_forked_image"
         app:layout_constraintTop_toTopOf="@id/repository_element_forked_image"
-        tools:text="5,408" />
+        tools:text="553" />
 
+    <android.support.constraint.Group
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="repository_element_license_image,repository_element_license_count" />
 
     <ImageView
         android:id="@+id/repository_element_license_image"
@@ -103,9 +107,10 @@
         android:id="@+id/repository_element_license_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
         app:layout_constraintBottom_toBottomOf="@id/repository_element_license_image"
         app:layout_constraintStart_toEndOf="@id/repository_element_license_image"
         app:layout_constraintTop_toTopOf="@id/repository_element_license_image"
-        tools:text="5,408" />
+        tools:text="Apache-2.0" />
 
 </android.support.constraint.ConstraintLayout>

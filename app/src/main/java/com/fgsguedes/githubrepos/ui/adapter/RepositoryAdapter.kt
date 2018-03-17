@@ -28,7 +28,9 @@ class RepositoryAdapter(
     override fun onBindViewHolder(holder: RepositoryViewHolder, position: Int) {
         with(repositories[position]) {
             holder.name.text = name
+
             holder.description.text = description
+            holder.description.visible = !description.isNullOrBlank()
 
             holder.language.text = language
             holder.language.visible = !language.isNullOrBlank()

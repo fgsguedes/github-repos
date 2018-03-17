@@ -3,21 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <android.support.constraint.Guideline
-        android:id="@+id/repository_element_guideline_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/screen_edge_margin" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/repository_element_guideline_end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/screen_edge_margin" />
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp"
+    android:paddingEnd="@dimen/screen_edge_margin"
+    android:paddingStart="@dimen/screen_edge_margin"
+    android:paddingTop="8dp">
 
     <TextView
         android:id="@+id/repository_element_name"
@@ -25,8 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        app:layout_constraintEnd_toEndOf="@id/repository_element_guideline_end"
-        app:layout_constraintStart_toStartOf="@id/repository_element_guideline_start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="timber" />
 
@@ -35,8 +25,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        app:layout_constraintEnd_toEndOf="@id/repository_element_guideline_end"
-        app:layout_constraintStart_toStartOf="@id/repository_element_guideline_start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/repository_element_name"
         tools:text="A logger with a small, extensible API which provides utility on top of Android's normal Log class." />
 
@@ -44,64 +34,85 @@
         android:id="@+id/repository_element_language"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@id/repository_element_guideline_start"
+        app:layout_constraintEnd_toStartOf="@id/repository_element_star_image"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/repository_element_description"
-        tools:text="Java" />
+        tools:text="Java"
+        tools:visibility="visible" />
+
+    <android.support.constraint.Group
+        android:id="@+id/repository_element_star_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="repository_element_star_image,repository_element_star_count"
+        tools:visibility="visible" />
 
     <ImageView
         android:id="@+id/repository_element_star_image"
         android:layout_width="16dp"
         android:layout_height="16dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@id/repository_element_language"
+        app:layout_constraintBottom_toBottomOf="@id/repository_element_star_count"
         app:layout_constraintStart_toEndOf="@id/repository_element_language"
-        app:layout_constraintTop_toTopOf="@id/repository_element_language"
+        app:layout_constraintTop_toTopOf="@id/repository_element_star_count"
         app:srcCompat="@drawable/ic_star" />
 
     <TextView
         android:id="@+id/repository_element_star_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/repository_element_star_image"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@id/repository_element_forked_image"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toEndOf="@id/repository_element_star_image"
-        app:layout_constraintTop_toTopOf="@id/repository_element_star_image"
+        app:layout_constraintTop_toBottomOf="@id/repository_element_description"
         tools:text="5,408" />
+
+    <android.support.constraint.Group
+        android:id="@+id/repository_element_forked_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="repository_element_forked_image,repository_element_forked_count"
+        tools:visibility="visible" />
 
     <ImageView
         android:id="@+id/repository_element_forked_image"
         android:layout_width="16dp"
         android:layout_height="16dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@id/repository_element_star_count"
+        app:layout_constraintBottom_toBottomOf="@id/repository_element_forked_count"
         app:layout_constraintStart_toEndOf="@id/repository_element_star_count"
-        app:layout_constraintTop_toTopOf="@id/repository_element_star_count"
+        app:layout_constraintTop_toTopOf="@id/repository_element_forked_count"
         app:srcCompat="@drawable/ic_repo_forked" />
 
     <TextView
         android:id="@+id/repository_element_forked_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/repository_element_forked_image"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@id/repository_element_license_image"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toEndOf="@id/repository_element_forked_image"
-        app:layout_constraintTop_toTopOf="@id/repository_element_forked_image"
+        app:layout_constraintTop_toBottomOf="@id/repository_element_description"
         tools:text="553" />
 
     <android.support.constraint.Group
         android:id="@+id/repository_element_license_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="repository_element_license_image,repository_element_license_count" />
+        app:constraint_referenced_ids="repository_element_license_image,repository_element_license_name"
+        tools:visibility="visible" />
 
     <ImageView
         android:id="@+id/repository_element_license_image"
         android:layout_width="16dp"
         android:layout_height="16dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@id/repository_element_forked_count"
+        app:layout_constraintBottom_toBottomOf="@id/repository_element_license_name"
         app:layout_constraintStart_toEndOf="@id/repository_element_forked_count"
-        app:layout_constraintTop_toTopOf="@id/repository_element_forked_count"
+        app:layout_constraintTop_toTopOf="@id/repository_element_license_name"
         app:srcCompat="@drawable/ic_license" />
 
     <TextView
@@ -109,9 +120,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        app:layout_constraintBottom_toBottomOf="@id/repository_element_license_image"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@id/repository_element_license_image"
-        app:layout_constraintTop_toTopOf="@id/repository_element_license_image"
+        app:layout_constraintTop_toBottomOf="@id/repository_element_description"
         tools:text="Apache-2.0" />
 
 </android.support.constraint.ConstraintLayout>

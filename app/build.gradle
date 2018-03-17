@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
@@ -25,13 +27,36 @@ android {
     }
 }
 
+androidExtensions {
+    experimental = true
+}
+
+kapt {
+    correctErrorTypes = true
+}
+
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    def daggerVersion = "2.15"
 
-    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
 
-    testImplementation 'junit:junit:4.12'
+    implementation "com.android.support:appcompat-v7:27.1.0"
+    implementation "com.android.support.constraint:constraint-layout:1.1.0-beta5"
 
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation "io.reactivex.rxjava2:rxjava:2.1.10"
+
+    implementation "com.squareup.okio:okio:1.14.0"
+    implementation "com.squareup.okhttp3:okhttp:3.10.0"
+    implementation "com.squareup.retrofit2:retrofit:2.4.0"
+
+    compile "com.google.dagger:dagger:$daggerVersion"
+    compile "com.google.dagger:dagger-android:$daggerVersion"
+
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+
+    testImplementation "junit:junit:4.12"
+
+    androidTestImplementation "com.android.support.test:runner:1.0.1"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:3.0.1"
 }

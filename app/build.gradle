@@ -40,22 +40,30 @@ kapt {
 }
 
 dependencies {
-    def supportLibraryVersion = "27.1.0"
     def daggerVersion = "2.15"
+    def okHttpVersion = "3.10.0"
+    def retrofitVersion = "2.4.0"
+    def supportLibraryVersion = "27.1.0"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
 
     implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
     implementation "com.android.support:recyclerview-v7:$supportLibraryVersion"
 
-
     implementation "com.android.support.constraint:constraint-layout:1.1.0-beta5"
 
     implementation "io.reactivex.rxjava2:rxjava:2.1.10"
 
     implementation "com.squareup.okio:okio:1.14.0"
-    implementation "com.squareup.okhttp3:okhttp:3.10.0"
-    implementation "com.squareup.retrofit2:retrofit:2.4.0"
+
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
+
+    implementation 'com.squareup.moshi:moshi:1.5.0'
 
     compile "com.google.dagger:dagger:$daggerVersion"
     compile "com.google.dagger:dagger-android:$daggerVersion"

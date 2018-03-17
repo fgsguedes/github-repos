@@ -21,7 +21,7 @@ data class GitHubRepository(
     val language: String?,
     val stargazers_count: Int,
     val forks_count: Int,
-    val licence: GitHubLicense?
+    val license: GitHubLicense?
 )
 
 data class GitHubLicense(

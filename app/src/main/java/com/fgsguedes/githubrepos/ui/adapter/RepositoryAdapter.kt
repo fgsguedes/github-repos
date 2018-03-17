@@ -39,8 +39,8 @@ class RepositoryAdapter(
             holder.forkCount.text = forks_count.toString()
             holder.forkGroup.visible = forks_count > 0
 
-            holder.license.text = licence?.name
-            holder.licenseGroup.visible = licence != null
+            holder.license.text = license?.name
+            holder.licenseGroup.visible = license != null
         }
     }
 

@@ -1,5 +1,6 @@
-package com.fgsguedes.githubrepos.data
+package com.fgsguedes.githubrepos.data.api
 
+import com.fgsguedes.githubrepos.model.Repository
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -12,18 +13,6 @@ interface GitHubApi {
         @Path("username") username: String = "JakeWharton",
         @Query("page") page: Int = 1,
         @Query("per_page") perPage: Int = 15
-    ): Observable<List<GitHubRepository>>
+    ): Observable<List<Repository>>
 }
 
-data class GitHubRepository(
-    val name: String,
-    val description: String?,
-    val language: String?,
-    val stargazers_count: Int,
-    val forks_count: Int,
-    val license: GitHubLicense?
-)
-
-data class GitHubLicense(
-    val name: String
-)

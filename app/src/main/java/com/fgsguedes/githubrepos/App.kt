@@ -1,34 +1,25 @@
 package com.fgsguedes.githubrepos
 
+import android.app.Activity
 import android.app.Application
-import com.fgsguedes.githubrepos.data.GitHubApi
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.moshi.MoshiConverterFactory
+import com.fgsguedes.githubrepos.di.DaggerApplicationComponent
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasActivityInjector
+import javax.inject.Inject
 
-class App : Application() {
+class App : Application(), HasActivityInjector {
 
-    private val httpLoggingInterceptor by lazy {
-        HttpLoggingInterceptor()
-            .setLevel(HttpLoggingInterceptor.Level.BODY)
-    }
+    @Inject
+    lateinit var activityInjector: DispatchingAndroidInjector<Activity>
 
-    private val okHttpClient by lazy {
-        OkHttpClient.Builder()
-            .addInterceptor(httpLoggingInterceptor)
+    override fun onCreate() {
+        super.onCreate()
+
+        DaggerApplicationComponent.builder()
+            .application(this)
             .build()
+            .injectMembers(this)
     }
 
-    private val retrofit by lazy {
-        Retrofit.Builder()
-            .baseUrl("https://api.github.com")
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(MoshiConverterFactory.create())
-            .client(okHttpClient)
-            .build()
-    }
-
-    val gitHubApi: GitHubApi by lazy { retrofit.create(GitHubApi::class.java) }
+    override fun activityInjector() = activityInjector
 }

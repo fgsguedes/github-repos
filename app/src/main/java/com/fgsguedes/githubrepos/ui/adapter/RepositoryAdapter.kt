@@ -9,11 +9,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.fgsguedes.githubrepos.R
 import com.fgsguedes.githubrepos.bind
-import com.fgsguedes.githubrepos.data.GitHubRepository
+import com.fgsguedes.githubrepos.model.Repository
 
 class RepositoryAdapter(
     context: Context,
-    private val repositories: List<GitHubRepository>
+    private val repositories: List<Repository>
 ) : RecyclerView.Adapter<RepositoryViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)

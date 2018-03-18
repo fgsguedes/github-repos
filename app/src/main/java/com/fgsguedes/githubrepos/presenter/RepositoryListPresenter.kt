@@ -1,17 +1,18 @@
 package com.fgsguedes.githubrepos.presenter
 
-import com.fgsguedes.githubrepos.data.GitHubApi
-import com.fgsguedes.githubrepos.data.GitHubRepository
+import com.fgsguedes.githubrepos.RepositoriesRepository
+import com.fgsguedes.githubrepos.model.Repository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class RepositoryListPresenter(
+class RepositoryListPresenter @Inject constructor(
     private val view: RepositoryListView,
-    private val gitHubApi: GitHubApi
+    private val repositories: RepositoriesRepository
 ) {
 
     fun onCreate() {
-        gitHubApi.repositories()
+        repositories.list()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(view::showRepositories)
@@ -19,5 +20,5 @@ class RepositoryListPresenter(
 }
 
 interface RepositoryListView {
-    fun showRepositories(repositories: List<GitHubRepository>)
+    fun showRepositories(repositories: List<Repository>)
 }

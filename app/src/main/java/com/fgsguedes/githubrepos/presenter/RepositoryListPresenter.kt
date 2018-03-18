@@ -28,6 +28,8 @@ class RepositoryListPresenter @Inject constructor(
     }
 
     private fun loadPage(page: Int) {
+        render(currentState.copy(isLoading = true))
+
         repositories.list(page)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -42,18 +44,27 @@ class RepositoryListPresenter @Inject constructor(
         currentPage++
         if (repositories.isNotEmpty()) {
             val newState = currentState.copy(
-                repositories = currentState.repositories + repositories
+                repositories = currentState.repositories + repositories,
+                isLoading = false
             )
             render(newState)
         }
     }
 
     private fun onListRepositoriesError(throwable: Throwable) {
-        render(currentState.copy(error = throwable))
+        val newState = currentState.copy(
+            error = throwable,
+            isLoading = false
+        )
+        render(newState)
     }
 
     private fun onEmptyRepositories() {
-        render(currentState.copy(loadedEverything = true))
+        val newState = currentState.copy(
+            loadedEverything = true,
+            isLoading = false
+        )
+        render(newState)
     }
 
     private fun render(newState: RepositoryListState) {

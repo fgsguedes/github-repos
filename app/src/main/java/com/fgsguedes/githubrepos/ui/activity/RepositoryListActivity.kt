@@ -4,18 +4,21 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.ProgressBar
 import com.fgsguedes.githubrepos.R
 import com.fgsguedes.githubrepos.bind
 import com.fgsguedes.githubrepos.presenter.RepositoryListPresenter
 import com.fgsguedes.githubrepos.presenter.RepositoryListState
 import com.fgsguedes.githubrepos.presenter.RepositoryListView
 import com.fgsguedes.githubrepos.ui.adapter.RepositoryAdapter
+import com.fgsguedes.githubrepos.visible
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 class RepositoryListActivity : AppCompatActivity(), RepositoryListView {
 
     private val recyclerView: RecyclerView by bind(R.id.repository_list_recycler_view)
+    private val loading: ProgressBar by bind(R.id.repository_list_scroll_loading)
 
     private lateinit var adapter: RepositoryAdapter
 
@@ -36,10 +39,14 @@ class RepositoryListActivity : AppCompatActivity(), RepositoryListView {
 
         recyclerView.adapter = adapter
         recyclerView.addOnChildAttachStateChangeListener(listener)
+
+        render(initialState)
     }
 
     override fun render(newState: RepositoryListState) {
         adapter.update(newState)
+
+        loading.visible = newState.isLoading
 
         if (newState.loadedEverything) {
             recyclerView.removeOnChildAttachStateChangeListener(listener)

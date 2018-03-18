@@ -48,6 +48,8 @@ class RepositoryAdapter(
     }
 
     fun update(newState: RepositoryListState) {
+        if (state == newState) return
+
         val diffCallback = StateDiff(state, newState)
         val diff = DiffUtil.calculateDiff(diffCallback)
 

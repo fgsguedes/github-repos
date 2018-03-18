@@ -4,6 +4,7 @@ import com.fgsguedes.githubrepos.RepositoriesRepository
 import com.fgsguedes.githubrepos.model.Repository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class RepositoryListPresenter @Inject constructor(
@@ -31,6 +32,7 @@ class RepositoryListPresenter @Inject constructor(
         render(currentState.copy(isLoading = true))
 
         repositories.list(page)
+            .delay(5, TimeUnit.SECONDS)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

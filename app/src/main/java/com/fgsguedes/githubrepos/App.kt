@@ -5,6 +5,7 @@ import android.app.Application
 import com.fgsguedes.githubrepos.di.DaggerApplicationComponent
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
+import io.realm.Realm
 import javax.inject.Inject
 
 class App : Application(), HasActivityInjector {
@@ -14,6 +15,8 @@ class App : Application(), HasActivityInjector {
 
     override fun onCreate() {
         super.onCreate()
+
+        Realm.init(this)
 
         DaggerApplicationComponent.builder()
             .application(this)

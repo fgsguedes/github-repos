@@ -25,12 +25,29 @@ class RepositoryListPresenter @Inject constructor(
 
         val repositoryList = currentState.repositories
         val position = repositoryList.indexOfLast { it.id == id }
-        if (position == repositoryList.size - 3) loadPage(currentPage + 1)
+
+        if (position == repositoryList.size - 3) {
+            val newState = currentState.copy(
+                isLoading = true
+            )
+            render(newState)
+            loadPage(currentPage + 1)
+        }
+    }
+
+    fun retry() {
+        val newState = currentState.copy(
+            repositories = emptyList(),
+            cached = false,
+            isLoading = true
+        )
+        render(newState)
+
+        currentPage = 1
+        loadPage(currentPage)
     }
 
     private fun loadPage(page: Int) {
-        render(currentState.copy(isLoading = true))
-
         repositories.list(page)
             .delay(5, TimeUnit.SECONDS)
             .subscribeOn(Schedulers.io())
@@ -42,11 +59,16 @@ class RepositoryListPresenter @Inject constructor(
             )
     }
 
-    private fun onReceivedRepositories(repositories: List<Repository>) {
-        currentPage++
-        if (repositories.isNotEmpty()) {
+    private fun onReceivedRepositories(response: RepositoriesRepository.Response) {
+        if (!response.cached) currentPage++
+
+        if (response.repositories.isNotEmpty()) {
+            val newList = if (response.cached) response.repositories
+            else currentState.repositories + response.repositories
+
             val newState = currentState.copy(
-                repositories = currentState.repositories + repositories,
+                repositories = newList,
+                cached = response.cached,
                 isLoading = false
             )
             render(newState)
@@ -79,6 +101,7 @@ data class RepositoryListState(
     val repositories: List<Repository> = emptyList(),
     val loadedEverything: Boolean = false,
     val isLoading: Boolean = true,
+    val cached: Boolean = false,
     val error: Throwable? = null
 )
 

@@ -6,11 +6,14 @@ import dagger.Component
 import dagger.MembersInjector
 import dagger.android.AndroidInjectionModule
 
-@Component(modules = [
-    AndroidInjectionModule::class,
-    ActivityBindingModule::class,
-    NetworkingModule::class
-])
+@Component(
+    modules = [
+        AndroidInjectionModule::class,
+        ActivityBindingModule::class,
+        NetworkingModule::class,
+        DatabaseModule::class
+    ]
+)
 interface ApplicationComponent : MembersInjector<App> {
 
     @Component.Builder

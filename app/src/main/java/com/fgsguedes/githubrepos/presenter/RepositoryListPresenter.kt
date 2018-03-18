@@ -11,15 +11,19 @@ class RepositoryListPresenter @Inject constructor(
     private val repositories: RepositoriesRepository
 ) {
 
+    private var currentPage = 0
+
     fun onCreate() {
-        repositories.list()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(view::showRepositories)
+        nextPage()
     }
 
     fun nextPage() {
-        TODO("not implemented")
+        currentPage++
+
+        repositories.list(currentPage)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(view::showRepositories)
     }
 }
 

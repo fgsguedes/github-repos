@@ -7,5 +7,6 @@ class RepositoriesRepository @Inject constructor(
     private val gitHubApi: GitHubApi
 ) {
 
-    fun list() = gitHubApi.repositories()
+    fun list(page: Int) = gitHubApi
+        .repositories(page = page)
 }

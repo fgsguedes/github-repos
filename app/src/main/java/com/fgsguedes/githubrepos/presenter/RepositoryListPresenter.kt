@@ -17,6 +17,10 @@ class RepositoryListPresenter @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(view::showRepositories)
     }
+
+    fun nextPage() {
+        TODO("not implemented")
+    }
 }
 
 interface RepositoryListView {

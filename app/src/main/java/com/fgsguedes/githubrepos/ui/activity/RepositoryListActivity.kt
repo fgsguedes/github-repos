@@ -3,6 +3,8 @@ package com.fgsguedes.githubrepos.ui.activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
+import android.view.Menu
+import android.view.MenuItem
 import com.fgsguedes.githubrepos.R
 import com.fgsguedes.githubrepos.bind
 import com.fgsguedes.githubrepos.model.Repository
@@ -33,6 +35,20 @@ class RepositoryListActivity : AppCompatActivity(), RepositoryListView {
 
     override fun showRepositories(repositories: List<Repository>) {
         adapter.appendElements(repositories)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.repository_list_menu_next -> true.also {
+                presenter.nextPage()
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.repository_list_menu, menu)
+        return true
     }
 
     private fun setupViews() {

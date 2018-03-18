@@ -16,6 +16,8 @@ class RepositoryListActivity : AppCompatActivity(), RepositoryListView {
 
     private val recyclerView: RecyclerView by bind(R.id.repository_list_recycler_view)
 
+    private val adapter by lazy { RepositoryAdapter(this) }
+
     @Inject
     lateinit var presenter: RepositoryListPresenter
 
@@ -25,10 +27,15 @@ class RepositoryListActivity : AppCompatActivity(), RepositoryListView {
 
         AndroidInjection.inject(this)
 
+        setupViews()
         presenter.onCreate()
     }
 
     override fun showRepositories(repositories: List<Repository>) {
-        recyclerView.adapter = RepositoryAdapter(this, repositories)
+        adapter.appendElements(repositories)
+    }
+
+    private fun setupViews() {
+        recyclerView.adapter = adapter
     }
 }

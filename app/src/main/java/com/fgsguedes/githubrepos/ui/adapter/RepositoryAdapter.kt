@@ -13,11 +13,11 @@ import com.fgsguedes.githubrepos.model.Repository
 import com.fgsguedes.githubrepos.visible
 
 class RepositoryAdapter(
-    context: Context,
-    private val repositories: List<Repository>
+    context: Context
 ) : RecyclerView.Adapter<RepositoryViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
+    private val repositories = mutableListOf<Repository>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepositoryViewHolder {
         val view = inflater.inflate(R.layout.list_element_repository, parent, false)
@@ -45,6 +45,20 @@ class RepositoryAdapter(
             holder.license.text = license?.name
             holder.licenseGroup.visible = license != null
         }
+    }
+
+    fun setElements(repositories: List<Repository>) {
+        this.repositories.apply {
+            clear()
+            addAll(repositories)
+        }
+        notifyDataSetChanged()
+    }
+
+    fun appendElements(repositories: List<Repository>) {
+        val oldSize = this.repositories.size
+        this.repositories.addAll(repositories)
+        notifyItemRangeChanged(oldSize, repositories.size)
     }
 }
 

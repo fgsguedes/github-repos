@@ -6,8 +6,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.fgsguedes.githubrepos.R
 import com.fgsguedes.githubrepos.bind
-import com.fgsguedes.githubrepos.model.Repository
 import com.fgsguedes.githubrepos.presenter.RepositoryListPresenter
+import com.fgsguedes.githubrepos.presenter.RepositoryListState
 import com.fgsguedes.githubrepos.presenter.RepositoryListView
 import com.fgsguedes.githubrepos.ui.adapter.RepositoryAdapter
 import dagger.android.AndroidInjection
@@ -17,7 +17,7 @@ class RepositoryListActivity : AppCompatActivity(), RepositoryListView {
 
     private val recyclerView: RecyclerView by bind(R.id.repository_list_recycler_view)
 
-    private val adapter by lazy { RepositoryAdapter(this) }
+    private lateinit var adapter: RepositoryAdapter
 
     @Inject
     lateinit var presenter: RepositoryListPresenter
@@ -28,21 +28,22 @@ class RepositoryListActivity : AppCompatActivity(), RepositoryListView {
 
         AndroidInjection.inject(this)
 
-        setupViews()
         presenter.onCreate()
     }
 
-    override fun showRepositories(repositories: List<Repository>) {
-        adapter.appendElements(repositories)
-    }
+    override fun setUp(initialState: RepositoryListState) {
+        adapter = RepositoryAdapter(this, initialState)
 
-    override fun foo() { // TODO: Rename this method
-        recyclerView.removeOnChildAttachStateChangeListener(listener)
-    }
-
-    private fun setupViews() {
         recyclerView.adapter = adapter
         recyclerView.addOnChildAttachStateChangeListener(listener)
+    }
+
+    override fun render(newState: RepositoryListState) {
+        adapter.update(newState)
+
+        if (newState.loadedEverything) {
+            recyclerView.removeOnChildAttachStateChangeListener(listener)
+        }
     }
 
     private val listener: RecyclerView.OnChildAttachStateChangeListener =

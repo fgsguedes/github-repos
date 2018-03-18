@@ -12,21 +12,22 @@ class RepositoryListPresenter @Inject constructor(
 ) {
 
     private var currentPage = 1
-    private var reachedEnd = false
-    private val repositoryList = mutableListOf<Repository>()
+    private var currentState = RepositoryListState()
 
     fun onCreate() {
+        view.setUp(currentState)
         loadPage(currentPage)
     }
 
     fun onElementDisplayed(id: Long) {
-        if (reachedEnd) return
+        if (currentState.loadedEverything) return
 
+        val repositoryList = currentState.repositories
         val position = repositoryList.indexOfLast { it.id == id }
         if (position == repositoryList.size - 3) loadPage(currentPage + 1)
     }
 
-    fun loadPage(page: Int) {
+    private fun loadPage(page: Int) {
         repositories.list(page)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -40,22 +41,35 @@ class RepositoryListPresenter @Inject constructor(
     private fun onReceivedRepositories(repositories: List<Repository>) {
         currentPage++
         if (repositories.isNotEmpty()) {
-            repositoryList.addAll(repositories)
-            view.showRepositories(repositories)
+            val newState = currentState.copy(
+                repositories = currentState.repositories + repositories
+            )
+            render(newState)
         }
     }
 
     private fun onListRepositoriesError(throwable: Throwable) {
-        TODO("not implemented")
+        render(currentState.copy(error = throwable))
     }
 
     private fun onEmptyRepositories() {
-        reachedEnd = true
-        view.foo()
+        render(currentState.copy(loadedEverything = true))
+    }
+
+    private fun render(newState: RepositoryListState) {
+        currentState = newState
+        view.render(newState)
     }
 }
 
+data class RepositoryListState(
+    val repositories: List<Repository> = emptyList(),
+    val loadedEverything: Boolean = false,
+    val isLoading: Boolean = true,
+    val error: Throwable? = null
+)
+
 interface RepositoryListView {
-    fun showRepositories(repositories: List<Repository>)
-    fun foo()
+    fun setUp(initialState: RepositoryListState)
+    fun render(newState: RepositoryListState)
 }

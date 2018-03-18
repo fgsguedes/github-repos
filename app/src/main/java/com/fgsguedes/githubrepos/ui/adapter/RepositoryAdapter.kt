@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.fgsguedes.githubrepos.R
 import com.fgsguedes.githubrepos.bind
 import com.fgsguedes.githubrepos.model.Repository
+import com.fgsguedes.githubrepos.visible
 
 class RepositoryAdapter(
     context: Context,
@@ -45,13 +46,6 @@ class RepositoryAdapter(
             holder.licenseGroup.visible = license != null
         }
     }
-
-    private var View.visible: Boolean
-        get() = visibility == View.VISIBLE
-        set(value) {
-            visibility = if (value) View.VISIBLE
-            else View.GONE
-        }
 }
 
 class RepositoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {

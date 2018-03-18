@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.fgsguedes.githubrepos.R
 import com.fgsguedes.githubrepos.bind
 import com.fgsguedes.githubrepos.model.Repository
@@ -37,10 +38,14 @@ class RepositoryListActivity : AppCompatActivity(), RepositoryListView {
         adapter.appendElements(repositories)
     }
 
+    override fun foo() {
+        recyclerView.removeOnChildAttachStateChangeListener(listener)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.repository_list_menu_next -> true.also {
-                presenter.nextPage()
+                presenter.loadPage(1)
             }
             else -> super.onOptionsItemSelected(item)
         }
@@ -53,5 +58,18 @@ class RepositoryListActivity : AppCompatActivity(), RepositoryListView {
 
     private fun setupViews() {
         recyclerView.adapter = adapter
+        recyclerView.addOnChildAttachStateChangeListener(listener)
     }
+
+    private val listener: RecyclerView.OnChildAttachStateChangeListener =
+        object : RecyclerView.OnChildAttachStateChangeListener {
+            override fun onChildViewDetachedFromWindow(view: View?) {
+                // Do nothing
+            }
+
+            override fun onChildViewAttachedToWindow(view: View?) {
+                val id = view?.tag as? Long
+                if (id != null) presenter.onElementDisplayed(id)
+            }
+        }
 }

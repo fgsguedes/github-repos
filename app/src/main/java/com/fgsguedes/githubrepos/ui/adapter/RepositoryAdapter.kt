@@ -28,6 +28,8 @@ class RepositoryAdapter(
 
     override fun onBindViewHolder(holder: RepositoryViewHolder, position: Int) {
         with(repositories[position]) {
+            holder.itemView.tag = id
+
             holder.name.text = name
 
             holder.description.text = description

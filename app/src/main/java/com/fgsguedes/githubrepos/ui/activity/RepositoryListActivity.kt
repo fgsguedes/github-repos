@@ -42,6 +42,7 @@ class RepositoryListActivity : AppCompatActivity(), RepositoryListView {
         cachedWarning.setOnClickListener { presenter.retry() }
 
         recyclerView.adapter = adapter
+        recyclerView.isNestedScrollingEnabled = false
         recyclerView.addOnChildAttachStateChangeListener(listener)
 
         render(initialState)

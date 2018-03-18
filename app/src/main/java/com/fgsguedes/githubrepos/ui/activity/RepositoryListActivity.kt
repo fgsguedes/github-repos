@@ -36,7 +36,7 @@ class RepositoryListActivity : AppCompatActivity(), RepositoryListView {
         adapter.appendElements(repositories)
     }
 
-    override fun foo() {
+    override fun foo() { // TODO: Rename this method
         recyclerView.removeOnChildAttachStateChangeListener(listener)
     }
 

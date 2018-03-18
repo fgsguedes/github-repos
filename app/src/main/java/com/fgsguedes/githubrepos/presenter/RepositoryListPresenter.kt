@@ -11,19 +11,37 @@ class RepositoryListPresenter @Inject constructor(
     private val repositories: RepositoriesRepository
 ) {
 
-    private var currentPage = 0
+    private var nextPage = 1
+    private var reachedEnd = false
 
     fun onCreate() {
         nextPage()
     }
 
     fun nextPage() {
-        currentPage++
+        if (reachedEnd) return
 
-        repositories.list(currentPage)
+        repositories.list(nextPage)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(view::showRepositories)
+            .subscribe(
+                ::onReceivedRepositories,
+                ::onListRepositoriesError,
+                ::onEmptyRepositories
+            )
+    }
+
+    private fun onReceivedRepositories(repositories: List<Repository>) {
+        nextPage++
+        if (repositories.isNotEmpty()) view.showRepositories(repositories)
+    }
+
+    private fun onListRepositoriesError(throwable: Throwable) {
+        TODO("not implemented")
+    }
+
+    private fun onEmptyRepositories() {
+        reachedEnd = true
     }
 }
 

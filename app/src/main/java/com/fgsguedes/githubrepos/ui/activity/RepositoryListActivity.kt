@@ -32,8 +32,8 @@ class RepositoryListActivity : AppCompatActivity() {
 
         setupViews()
 
-        presenter.onCreate()
         presenter.viewState().subscribe(::render)
+        presenter.onCreate()
     }
 
     private fun setupViews() {

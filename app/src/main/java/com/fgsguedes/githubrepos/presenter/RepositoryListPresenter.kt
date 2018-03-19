@@ -2,14 +2,14 @@ package com.fgsguedes.githubrepos.presenter
 
 import com.fgsguedes.githubrepos.RepositoriesRepository
 import com.fgsguedes.githubrepos.model.Repository
+import io.reactivex.MaybeTransformer
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
 
 class RepositoryListPresenter @Inject constructor(
-    private val repositories: RepositoriesRepository
+    private val repositories: RepositoriesRepository,
+    private val schedulerComposer: MaybeTransformer<RepositoryListState, RepositoryListState>
 ) {
 
     private var currentPage = 1
@@ -48,8 +48,7 @@ class RepositoryListPresenter @Inject constructor(
             .doOnSuccess { if (!it.cached) currentPage++ }
             .map(::repositoryList)
             .map(::toState)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .compose(schedulerComposer)
             .subscribe(
                 stateSubject::onNext,
                 ::onListRepositoriesError,

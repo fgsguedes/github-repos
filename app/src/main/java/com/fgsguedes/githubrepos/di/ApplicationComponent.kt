@@ -10,6 +10,7 @@ import dagger.android.AndroidInjectionModule
     modules = [
         AndroidInjectionModule::class,
         ActivityBindingModule::class,
+        ReactiveModule::class,
         NetworkingModule::class,
         DatabaseModule::class
     ]

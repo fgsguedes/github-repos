@@ -1,6 +1,6 @@
 package com.fgsguedes.githubrepos.presenter
 
-import com.fgsguedes.githubrepos.RepositoriesRepository
+import com.fgsguedes.githubrepos.data.repository.RepositoriesRepository
 import com.fgsguedes.githubrepos.model.Repository
 import io.reactivex.MaybeTransformer
 import io.reactivex.Observable

@@ -1,7 +1,7 @@
 package com.fgsguedes.githubrepos.presenter
 
-import com.fgsguedes.githubrepos.RepositoriesRepository
-import com.fgsguedes.githubrepos.RepositoriesRepository.Response
+import com.fgsguedes.githubrepos.data.repository.RepositoriesRepository
+import com.fgsguedes.githubrepos.data.repository.RepositoriesRepository.Response
 import com.fgsguedes.githubrepos.tests.util.Fabricator
 import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify

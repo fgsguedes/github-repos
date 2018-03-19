@@ -1,4 +1,4 @@
-package com.fgsguedes.githubrepos
+package com.fgsguedes.githubrepos.data.repository
 
 import com.fgsguedes.githubrepos.data.api.GitHubApi
 import com.fgsguedes.githubrepos.data.database.model.RealmRepository

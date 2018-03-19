@@ -6,7 +6,6 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class RepositoryListPresenter @Inject constructor(
@@ -46,7 +45,6 @@ class RepositoryListPresenter @Inject constructor(
 
     private fun loadPage(page: Int) {
         repositories.list(page)
-            .delay(5, TimeUnit.SECONDS)
             .doOnSuccess { if (!it.cached) currentPage++ }
             .map(::repositoryList)
             .map(::toState)

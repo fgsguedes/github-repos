@@ -60,7 +60,7 @@ class RepositoriesRepository @Inject constructor(
         } else Maybe.error(error)
     }
 
-    inner class Response(
+    data class Response(
         val repositories: List<Repository>,
         val hasNextPage: Boolean = true,
         val cached: Boolean = false

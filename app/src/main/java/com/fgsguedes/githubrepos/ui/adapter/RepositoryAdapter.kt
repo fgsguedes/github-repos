@@ -12,11 +12,11 @@ import com.fgsguedes.githubrepos.visible
 
 class RepositoryAdapter(
     context: Context,
-    private var state: RepositoryListState,
     private val loadMoreCallback: () -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
+    private var state: RepositoryListState = RepositoryListState()
     private var triggeredLoading = false
 
     override fun getItemViewType(position: Int): Int {

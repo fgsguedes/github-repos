@@ -7,6 +7,6 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class ActivityBindingModule {
 
-    @ContributesAndroidInjector(modules = [RepositoryListModule::class])
+    @ContributesAndroidInjector
     abstract fun repositoryListActivity(): RepositoryListActivity
 }

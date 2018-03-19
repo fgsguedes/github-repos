@@ -12,11 +12,11 @@ class RepositoryListPresenter @Inject constructor(
     private val schedulerComposer: MaybeTransformer<RepositoryListState, RepositoryListState>
 ) {
 
-    private var currentPage = 1
+    private var nextPage = 1
     private val stateSubject = BehaviorSubject.createDefault(RepositoryListState())
 
     fun onCreate() {
-        loadPage(currentPage)
+        fetch(nextPage)
     }
 
     fun viewState(): Observable<RepositoryListState> = stateSubject
@@ -27,10 +27,12 @@ class RepositoryListPresenter @Inject constructor(
         stateSubject.onNextCopy { state ->
             state.copy(isLoading = true)
         }
-        loadPage(currentPage + 1)
+        fetch(nextPage)
     }
 
     fun retry() {
+        if (!stateSubject.value.cached) return
+
         stateSubject.onNextCopy { state ->
             state.copy(
                 repositories = emptyList(),
@@ -39,13 +41,13 @@ class RepositoryListPresenter @Inject constructor(
             )
         }
 
-        currentPage = 1
-        loadPage(currentPage)
+        nextPage = 1
+        fetch(nextPage)
     }
 
-    private fun loadPage(page: Int) {
+    private fun fetch(page: Int) {
         repositories.list(page)
-            .doOnSuccess { if (!it.cached) currentPage++ }
+            .doOnSuccess { if (!it.cached) nextPage++ }
             .map(::repositoryList)
             .map(::toState)
             .compose(schedulerComposer)

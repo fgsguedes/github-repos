@@ -54,11 +54,11 @@ class RepositoryAdapter(
                 holder.language.text = language
                 holder.language.visible = !language.isNullOrBlank()
 
-                holder.starCount.text = stargazers_count.toString()
-                holder.starGroup.visible = stargazers_count > 0
+                holder.starCount.text = starCount.toString()
+                holder.starGroup.visible = starCount > 0
 
-                holder.forkCount.text = forks_count.toString()
-                holder.forkGroup.visible = forks_count > 0
+                holder.forkCount.text = forkCount.toString()
+                holder.forkGroup.visible = forkCount > 0
 
                 holder.license.text = license?.name
                 holder.licenseGroup.visible = license != null

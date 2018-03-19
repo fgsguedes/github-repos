@@ -20,8 +20,8 @@ open class RealmRepository(
         repository.name,
         repository.description,
         repository.language,
-        repository.stargazers_count,
-        repository.forks_count,
+        repository.starCount,
+        repository.forkCount,
         repository.license?.name
     )
 

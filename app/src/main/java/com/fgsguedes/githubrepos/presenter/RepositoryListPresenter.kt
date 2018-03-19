@@ -20,19 +20,14 @@ class RepositoryListPresenter @Inject constructor(
         loadPage(currentPage)
     }
 
-    fun onElementDisplayed(id: Long) {
-        if (currentState.loadedEverything) return
+    fun loadMore() {
+        if (!currentState.hasNextPage) return
 
-        val repositoryList = currentState.repositories
-        val position = repositoryList.indexOfLast { it.id == id }
-
-        if (position == repositoryList.size - 3) {
-            val newState = currentState.copy(
-                isLoading = true
-            )
-            render(newState)
-            loadPage(currentPage + 1)
-        }
+        val newState = currentState.copy(
+            isLoading = true
+        )
+        render(newState)
+        loadPage(currentPage + 1)
     }
 
     fun retry() {
@@ -68,6 +63,7 @@ class RepositoryListPresenter @Inject constructor(
 
             val newState = currentState.copy(
                 repositories = newList,
+                hasNextPage = response.hasNextPage,
                 cached = response.cached,
                 isLoading = false
             )
@@ -85,7 +81,7 @@ class RepositoryListPresenter @Inject constructor(
 
     private fun onEmptyRepositories() {
         val newState = currentState.copy(
-            loadedEverything = true,
+            hasNextPage = false,
             isLoading = false
         )
         render(newState)
@@ -99,7 +95,7 @@ class RepositoryListPresenter @Inject constructor(
 
 data class RepositoryListState(
     val repositories: List<Repository> = emptyList(),
-    val loadedEverything: Boolean = false,
+    val hasNextPage: Boolean = true,
     val isLoading: Boolean = true,
     val cached: Boolean = false,
     val error: Throwable? = null

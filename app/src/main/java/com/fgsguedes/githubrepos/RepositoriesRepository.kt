@@ -26,12 +26,12 @@ class RepositoriesRepository @Inject constructor(
                 val headers = response?.headers()
                 val body = response?.body()
 
-                hasNextPage = headers?.get("Link")
+                hasNextPage = result.isError || headers?.get("Link")
                     ?.contains("rel=\"next\"") ?: false
 
                 when {
                     result.isError -> Maybe.error(result.error())
-                    body != null -> Maybe.just(Response(body))
+                    body != null -> Maybe.just(Response(body, hasNextPage))
                     else -> Maybe.empty()
                 }
             }
@@ -62,6 +62,7 @@ class RepositoriesRepository @Inject constructor(
 
     inner class Response(
         val repositories: List<Repository>,
+        val hasNextPage: Boolean = true,
         val cached: Boolean = false
     )
 }

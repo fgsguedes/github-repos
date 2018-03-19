@@ -17,37 +17,14 @@
         android:text="Looks like you're having connection problems, your data was loaded from a cache, tap to try fetching again."
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/repository_list_root_view"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/repository_list_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@id/repository_list_connection_warning">
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/repository_list_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layoutManager="LinearLayoutManager"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:listitem="@layout/list_element_repository"
-                tools:visibility="visible" />
-
-            <ProgressBar
-                android:id="@+id/repository_list_scroll_loading"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/repository_list_recycler_view" />
-
-        </android.support.constraint.ConstraintLayout>
-
-    </android.support.v4.widget.NestedScrollView>
+        android:orientation="vertical"
+        app:layoutManager="LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/repository_list_connection_warning"
+        tools:listitem="@layout/list_element_repository"
+        tools:visibility="visible" />
 
 </android.support.constraint.ConstraintLayout>

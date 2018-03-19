@@ -8,6 +8,7 @@ import com.fgsguedes.githubrepos.R
 import com.fgsguedes.githubrepos.bind
 import com.fgsguedes.githubrepos.presenter.RepositoryListPresenter
 import com.fgsguedes.githubrepos.presenter.RepositoryListState
+import com.fgsguedes.githubrepos.ui.LineDividerDecorator
 import com.fgsguedes.githubrepos.ui.adapter.RepositoryAdapter
 import com.fgsguedes.githubrepos.visible
 import dagger.android.AndroidInjection
@@ -41,7 +42,7 @@ class RepositoryListActivity : AppCompatActivity() {
         cachedWarning.setOnClickListener { presenter.retry() }
 
         recyclerView.adapter = adapter
-        recyclerView.isNestedScrollingEnabled = false
+        recyclerView.addItemDecoration(LineDividerDecorator(this))
     }
 
     private fun render(newState: RepositoryListState) {
